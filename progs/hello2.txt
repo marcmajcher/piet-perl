@@ -1,0 +1,25 @@
+ R  R  R  R  R  R  R  R  R  R  dR dB C dC dB dG
+ R  R  R  R  R  R  R  R  R  C  C  C  C dR dR  Y
+ R  R  R  R  R  R  R  R  R  C  C  C  C dR dR  Y
+ R  R  R  R  R  R  R  R  C  C  C  C  C dR dR  Y
+ R  R  R  R  R  R  R  R  C  C  C  C  C dR dR  Y
+ R  R  R  R  R  R  R  R  C  C Bk  C  C dR dR  Y
+ R  R  R  R  R  R  R  R  C  C  R  C  C dR dR  Y
+ R  R  R  R  R  R  R  C  C  R  R  R Bk dR dR  Y
+ R  R lY lY lY  R  R  R lY Bk lR Wt Wt dR dR dY
+Bk Bk Bk lY lY lY lY lY lY Bk lR Wt Wt Wt Wt Wt
+dY dY lY  G lY lY lY lY lY Bk lR dY dY dY dY dY
+dY dY  C lY lY lY lY lY lY Bk  Y dG dG dG dG dG
+dY dY  C lY lY lY lY lY lY Bk  Y dR dR dR dR dR
+dY dY  C lY lY lY lY lY lY Bk  Y dB dB dB dB dB
+lG  C  C  Y Wt Bk Wt Bk Bk Bk  Y dG dG dG dG dG
+lB  C lR lR lR Wt Bk Bk Bk Bk  Y  Y  Y Bk  Y  Y
+ M  C lR lR lR Bk Wt Bk Bk Bk Bk dY Bk Bk  Y  Y
+ B  C lR lR lR Wt Bk  R  R  R  R  Y  Y  Y  Y  Y
+lB  C  C lR Wt Bk Wt  R  R  R  R  Y  Y  Y  Y  Y
+lB lB Bk  R Bk Wt Bk  R  R  R  R  Y  Y  Y  Y  Y
+ M Bk lM lM lM Bk Wt  R  R  R  R  Y  Y  Y  Y  Y
+dR Bk Bk lM Bk Wt Bk  R  R  R  R  Y  Y  Y  Y  Y
+dM Bk Bk Bk Wt Bk Wt  R  R  R  R  Y  Y  Y  Y  Y
+ M  M  M Wt Bk Wt Bk  R  R  R  R  Y  Y  Y  Y  Y
+ M  M  M  M  M dR  R  R  R  R dY  Y  Y  Y  Y  Y

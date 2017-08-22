@@ -1,0 +1,44 @@
+              Light Yellow (10) 
+  PUSH 10     Yellow (10)
+  PUSH 10     Dark Yellow
+  MULT 10 10  Green (2)
+  PUSH 2      Dark Green
+  SUB  100 2  Light Cyan
+  PUSH 1      Cyan
+  DUP  1      Yellow
+  DUP  1      Magenta
+  DUP  1      Cyan
+  NOUT 1      Dark Green
+  NOUT 1      Light Yellow (3)
+  PUSH 3      Yellow
+
+  PNTR 3      Dark Blue
+  DUP  1      Dark Green (4)
+  PUSH 4      Light Green (1)
+  PUSH 1      Green
+  ROLL 4 1    Dark Red
+  ADD  1 1    Dark Yellow
+  DUP  2      Dark Magenta
+  NOUT 2      Light Blue (3)
+  PUSH 3      Blue (1)
+  PUSH 1      Dark Blue
+  ROLL 3 1    Light Green (1)
+  PUSH 1      Green
+  SUB  98 1   Dark Cyan
+  DUP  97     Dark Yellow
+  NOT  97     Cyan
+  GTR  97 0   Red
+  PNTR 1      Dark Cyan (3)
+
+  PUSH 3      Light Cyan (1)
+  PUSH 1      Cyan
+  NOUT        Dark Yellow (2)
+  PUSH 2      Light Yellow (1)
+  PUSH 1      Yellow
+  ROLL        Dark Magenta (1)
+  PUSH 1      Magenta
+              White
+              Yellow
+  PNTR 1      Blue 
+
+

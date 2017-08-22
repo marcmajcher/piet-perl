@@ -1,0 +1,7 @@
+#!/usr/local/bin/perl -w
+
+use strict;
+use Piet::Interpreter;
+my $p = Piet::Interpreter->new();
+$p->image('/home/majcher/public_html/code/piet/progs/count.gif');
+$p->run;

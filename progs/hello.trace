@@ -1,0 +1,25 @@
+	    Red (72)
+  PUSH 72   Dark Red
+  COUT H    Magenta (101)
+  PUSH 101  Dark Magenta
+  COUT e    Blue (108)
+  PUSH 108  Dark Blue
+  DUP  108  Dark Green
+  DUP  108  Dark Red
+  COUT l    Magenta
+  COUT l    Light Blue (111)
+  PUSH 111  Blue
+  DUP       Green
+  COUT o    Light Yellow (32)
+  PUSH 32   Yellow
+  COUT      Light Red (119)
+  PUSH 119  Red
+  COUT w    Light Magenta
+  COUT o    Dark Blue (114)
+  PUSH 114  Light Blue
+  COUT r    Dark Cyan
+  COUT l    Green (100)
+  PUSH 100  Dark Green 
+  COUT Z    Yellow (33)
+  PUSH 33   Dark Yellow
+  COUT !    Red

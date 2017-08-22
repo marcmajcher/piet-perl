@@ -1,0 +1,29 @@
+ R  R  R  R  R  R  R  R  R  R  R dR  M  M  M  M  M  M  M dM  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R  R  R  R  R  C  C  C  M  M  M  M  M  M  M  M dM  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R  R  R  R  R  C  C  M  M  M  M  M  M  M  M  M dM  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R  R  R  R  C  C  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R  R  R  R  C  M  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R  R  R  M  M  M  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B 
+ R  R  R  R Bk  R  R  M  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B  B 
+ R  R  R Bk  R Bk  R  R  M  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B 
+ R  R Bk  R  R  R Bk  R  M  M  M  M  M  M  M  M  M  M  M  B  B  B  B  B  B  B  B  B  B  B 
+ R  R  R Bk dY Bk  R  R  R  M  M  M  M  M  M  M  M  M  M Bk  B  B  B  B  B  B  B  B  B  B 
+ Y  Y  Y  Y  Y  R  R  R  R  R  G  G  G  G  G  G  G  G  G  G Bk lB lB lB lB lB lB lB lB  B 
+ Y  Y  Y  Y  Y  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB dB dB dB 
+ Y  Y  Y  Y  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB dG dG dG 
+ Y  Y  Y dG  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB dR dR dR 
+ Y  Y  Y  Y  Y  Y  Y  Y Bk  G  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB  M  M  M 
+ Y  Y  Y  Y  Y  Y  Y  Y lB dC  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  G  G  G  G  G  G  G  G  G  G  G lB lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  G  G lR  G  G  G  G  G  G  G  G Bk lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  G Bk lR lR lR lR lR lR lR lR Bk lB lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB Bk lR lR lR lR lR lR lR lR lR lR lR lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR lB lB lB lB lB lB lB lB lB 
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR Bk  B  B  B  B  B  B  B  B
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR  Y  G  G  G  G  G  G  G  G 
+dB dB dB dB dB dB dB dB dB  R lR lR lR lR lR lR lR lR lR lR lR  Y lY lY lY lY lY lY lY lY 
+dB dB dB dB dB dB dB dB lM  R lR lR lR lR lR lR lR lR lR lR lR  Y lY lY lY lY lY lY lY lY 
+dB dB dB dB dB dB dB dB lM  R lR lR lR lR lR lR lR lR lR lR lR  Y lY lY lY lY lY lY lY lY 
+dB dB dB dB dB dB dB dB lM  R lR lR lR lR lR lR lR lR lR lR lR  Y lY lY lY lY lY lY lY lY 

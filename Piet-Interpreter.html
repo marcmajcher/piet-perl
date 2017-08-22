@@ -1,0 +1,388 @@
+<HTML>
+<HEAD>
+<TITLE>Piet::Interpreter - Interpreter for the Piet programming language</TITLE>
+<LINK REV="made" HREF="mailto:perl561@majcher.com">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#methods">METHODS</A></LI>
+	<LI><A HREF="#language concepts">LANGUAGE CONCEPTS</A></LI>
+	<UL>
+
+		<LI><A HREF="#colors">Colors</A></LI>
+		<UL>
+
+			<LI><A HREF="#hue cycle:">Hue Cycle:</A></LI>
+			<LI><A HREF="#lightness cycle:">Lightness Cycle:</A></LI>
+		</UL>
+
+		<LI><A HREF="#codels">Codels</A></LI>
+		<LI><A HREF="#stack">Stack</A></LI>
+		<LI><A HREF="#program execution">Program Execution</A></LI>
+	</UL>
+
+	<LI><A HREF="#syntax elements">SYNTAX ELEMENTS</A></LI>
+	<UL>
+
+		<LI><A HREF="#numbers">Numbers</A></LI>
+		<LI><A HREF="#black blocks and edges">Black Blocks and Edges</A></LI>
+		<LI><A HREF="#white blocks">White Blocks</A></LI>
+		<LI><A HREF="#commands">Commands</A></LI>
+	</UL>
+
+	<LI><A HREF="#author">AUTHOR</A></LI>
+	<LI><A HREF="#see also">SEE ALSO</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>Piet::Interpreter - Interpreter for the Piet programming language</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<PRE>
+    use Piet::Interpreter;</PRE>
+<PRE>
+    my $p = Piet::Interpreter-&gt;new(image =&gt; 'my_code.gif');</PRE>
+<PRE>
+    $p-&gt;run;</PRE>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P>Piet is a programming language in which programs look like abstract
+paintings. The language is named after Piet Mondrian, who pioneered
+the field of geometric abstract art.  The language is fully described
+at <A HREF="http://www.physics.usyd.edu.au/~mar/esoteric/piet.html.">http://www.physics.usyd.edu.au/~mar/esoteric/piet.html.</A>  A Piet
+program is an image file, usually a gif, which uses a set of 20 colors
+and the transitions between blocks of those colors to define a series
+of instructions and program flow.  See the above URL for more details.
+(Note: some sample programs there may not work, as they were
+constructed before a working interpreter was available.)</P>
+<P>Since Piet is a visual language, an image parsing mechanism is
+required.  This module uses Image::Magick, so it would be to your
+advantage to download, install, and test that module and its
+related stuff before trying to use this one.</P>
+<P>
+<HR>
+<H1><A NAME="methods">METHODS</A></H1>
+<DL>
+<DT><STRONG><A NAME="item_new">my $piet = Piet::Interpreter-&gt;new( %args );</A></STRONG><BR>
+<DD>
+Instantiates and returns a new Piet::Interpreter object.  Valid
+arguments are:
+<DL>
+<DT><STRONG><A NAME="item_image_%3D%3E_%27my_prog%2Egif%27">image =&gt; 'my_prog.gif'</A></STRONG><BR>
+<DD>
+Specifies the program image file to load into the interpreter.
+<P></P>
+<DT><STRONG><A NAME="item_codel_size_%3D%3E_%24size">codel_size =&gt; $size</A></STRONG><BR>
+<DD>
+Tells the interpreter how large a codel is, in pixels.  Defaults to 1.
+<P></P>
+<DT><STRONG><A NAME="item_nonstandard_%3D%3E_%28%27white%27%7C%27black%27%29">nonstandard =&gt; ('white'|'black')</A></STRONG><BR>
+<DD>
+Sets the behavior of non-standard colored codels to either 'white' or
+'black'.  Defaults to 'white'.
+<P></P>
+<DT><STRONG><A NAME="item_debug_%3D%3E_%281%7C0%29">debug =&gt; (1|0)</A></STRONG><BR>
+<DD>
+Turns on debugging information, including warnings.
+<P></P>
+<DT><STRONG><A NAME="item_warn_%3D%3E_%281%7C0%29">warn =&gt; (1|0)</A></STRONG><BR>
+<DD>
+Turns on warnings only.
+<P></P>
+<DT><STRONG><A NAME="item_trace_%3D%3E_%281%7C0%29">trace =&gt; (1|0)</A></STRONG><BR>
+<DD>
+Turns on program tracing, which only outputs instructions and values.
+<P></P></DL>
+<DT><STRONG><A NAME="item_reset">$piet-&gt;reset;</A></STRONG><BR>
+<DD>
+Resets the PVM (Piet Virtual Machine) back to the default state.
+After a reset, the current x and y should both be 0, the DP points to
+the right, the CC points to the left, and the stack should be empty.
+<P></P>
+<DT><STRONG><A NAME="item_image">$piet-&gt;image('myprog.gif');</A></STRONG><BR>
+<DD>
+Loads in a program image from the specified file.  The interpreter was
+designed and tested using gif images, but any format that is supported
+by Image::Magick should work just fine.  Once the file has been
+loaded, it is inspected and processed, creating a run-matrix and
+determining some useful properties from the image.
+<P>Note: Be sure to set the codel size, if needed, before loading the
+image.  Otherwise, a size of 1 will be assumed, and the codel columns
+and rows will not be calculated correctly, causing pain and
+irritation.</P>
+<P></P>
+<DT><STRONG><A NAME="item_run">$piet-&gt;run;</A></STRONG><BR>
+<DD>
+Starts the Piet interpreter running from the upper-left codel.
+Program execution is described under ``Language Concepts'', below.
+<P></P>
+<DT><STRONG><A NAME="item_step">$done = $piet-&gt;step;</A></STRONG><BR>
+<DD>
+Performs one ``step'' of a Piet program, where a step is one transition
+from one codel block to the next.  A failed transition (trying to go
+out of bounds, or onto black) is not considered a step, but a slide
+into or out of a while block is.  Returns the step count number, or
+undef if the step terminates the program.
+<P></P>
+<DT><STRONG><A NAME="item_debug">$piet-&gt;debug(1);</A></STRONG><BR>
+<DD>
+Turns debugging information on or off.
+<P></P>
+<DT><STRONG><A NAME="item_warn">$piet-&gt;warn(1);</A></STRONG><BR>
+<DD>
+Turns warnings on or off.
+<P></P>
+<DT><STRONG><A NAME="item_trace">$piet-&gt;trace(1);</A></STRONG><BR>
+<DD>
+Turns program instruction tracing on or off.
+<P></P>
+<DT><STRONG><A NAME="item_codel_size">$piet-&gt;codel_size(5);</A></STRONG><BR>
+<DD>
+Sets or returns the codel size for the program image.
+<P></P>
+<DT><STRONG><A NAME="item_nonstandard">$piet-&gt;nonstandard('white');</A></STRONG><BR>
+<DD>
+Sets the behavior of non-standard codels to 'white' or 'black'.
+<P></P>
+<DT><STRONG><A NAME="item_rows">$rows = $piet-&gt;rows;</A></STRONG><BR>
+<DD>
+Returns the number of codel rows in the program image.
+<P></P>
+<DT><STRONG>$cols = $piet-&gt;rows;</STRONG><BR>
+<DD>
+Returns the number of codel columns in the program image.
+<P></P>
+<DT><STRONG>$file = $piet-&gt;rows;</STRONG><BR>
+<DD>
+Returns the name of the file from which the program image was loaded.
+<P></P>
+<DT><STRONG><A NAME="item_state">$piet-&gt;state(``CHECK'');</A></STRONG><BR>
+<DD>
+Prints detailed information about the state of the PVM, with an
+optional label.  Information reported includes the filename, number of
+codel columns and rows, which debugging, warning, or tracing flags are
+set, how non-standard colored codels are handled, the step number, the
+current x and y position of the pointer, the directions of the DP and
+CC, the last color visited, and the values currently on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_to_text">print $piet-&gt;to_text;</A></STRONG><BR>
+<DD>
+Returns a nicely formatted text version of the program image's codel
+matrix, with the filename, codel size, and column/row information.
+<P></P></DL>
+<P>
+<HR>
+<H1><A NAME="language concepts">LANGUAGE CONCEPTS</A></H1>
+<P>
+<H2><A NAME="colors">Colors</A></H2>
+<P>Piet uses 20 distinct colors, 18 of which are related cyclically in two ways:</P>
+<P>
+<H3><A NAME="hue cycle:">Hue Cycle:</A></H3>
+<P>Red -&gt; Yellow -&gt; Cyan -&gt; Blue -&gt; Magenta -&gt; Red</P>
+<P>
+<H3><A NAME="lightness cycle:">Lightness Cycle:</A></H3>
+<P>Light -&gt; Normal -&gt; Dark -&gt; Light</P>
+<P>Note that ``light'' is considered to be one step ``darker'' than ``dark'',
+and vice versa.  White and black do not fall into either cycle.</P>
+<P>Additional colors (such as orange or brown) may also be used.  In the
+default case, non-standard colors are treated by the PVM (Piet Virtual
+Machine) as the same as white, so may be used freely wherever white is
+used.  You may also use the <A HREF="#item_nonstandard"><CODE>nonstandard()</CODE></A> method to tell the PVM to
+treat them the same as black.</P>
+<P>
+<H2><A NAME="codels">Codels</A></H2>
+<P>Piet code takes the form of an image made up of the recognised colors.
+Individual pixels of color are significant in the language, so it is
+common for programs to be enlarged for viewing so that the details are
+easily visible.  In such enlarged programs, the term ``codel'' is used
+to mean a block of color equivalent to a single pixel of code, to
+avoid confusion with the actual pixels of the enlarged graphic, of
+which many may make up one codel.</P>
+<P>
+<H2><A NAME="stack">Stack</A></H2>
+<P>Piet uses a stack for storage of all data values.  Data values exist
+only as integers, though they may be read in or printed as Unicode
+character values with the appropriate commands.</P>
+<P>
+<H2><A NAME="program execution">Program Execution</A></H2>
+<P>The Piet language interpreter begins executing a program in the color
+block which includes the upper left codel of the program.  The
+interpreter maintains a Direction Pointer (DP), initially pointing to
+the right.  The DP may point either right, left, down or up.  The
+interpreter also maintains a Codel Chooser (CC), initially pointing
+left. The CC may point either left or right.  The directions of the DP
+and CC will often change during program execution.  As it executes the
+program, the interpreter traverses the color blocks of the program
+under the following rules:</P>
+<OL>
+<LI>
+The interpreter finds the edge of the current color block which is
+furthest in the direction of the DP. (This edge may be disjoint if the
+block is of a complex shape.)
+<P></P>
+<LI>
+The interpreter finds the codel of the current color block on that
+edge which is furthest to the CC's direction of the DP's direction of
+travel.  (For example, if the DP points downwards, and the CC is to
+the left, the interpreter looks for the rightmost codel on the edge.)
+<P></P>
+<LI>
+The interpreter travels from that codel into the color block
+containing the codel immediately in the direction of the DP.
+<P></P></OL>
+<P>The interpreter continues doing this until the program terminates.</P>
+<P>
+<HR>
+<H1><A NAME="syntax elements">SYNTAX ELEMENTS</A></H1>
+<P>
+<H2><A NAME="numbers">Numbers</A></H2>
+<P>Each non-black, non-white color block in a Piet program represents an
+integer equal to the number of codels in that block.  Note that
+non-positive integers cannot be represented, although they can be
+constructed with operators.  When the interpreter encounters a number,
+it does not necessarily do anything with it.  In particular, it is not
+automatically pushed on to the stack - there is an explicit command
+for that.</P>
+<P>
+<H2><A NAME="black blocks and edges">Black Blocks and Edges</A></H2>
+<P>Black color blocks and the edges of the program restrict program flow.
+If the Piet interpreter attempts to move into a black block or off an
+edge, it is stopped and the CC is toggled.  The interpreter then
+attempts to move from its current block again.  If it fails a second
+time, the DP is moved clockwise one step.  These attempts are
+repeated, with the CC and DP being changed between alternate attempts.
+If, after eight attempts the interpreter cannot leave its current
+color block, there is no way out and the program terminates.</P>
+<P>
+<H2><A NAME="white blocks">White Blocks</A></H2>
+<P>White color blocks are ``free'' zones through which the interpreter
+passes unhindered.  If it moves from a color block into a white area,
+the interpreter ``slides'' through the white codels in the direction of
+the DP until it reaches a non-white color block.  If the interpreter
+slides into a black block or an edge, it is considered restricted (see
+above), otherwise it moves into the color block so encountered.
+Sliding across white blocks does not cause a command to be executed.</P>
+<P>
+<H2><A NAME="commands">Commands</A></H2>
+<P>Commands are defined by the transition of color from one color block
+to the next as the interpreter travels through the program.  The
+number of steps along the Hue Cycle and Lightness Cycle in each
+transition determine the command executed, as shown in the table
+below.  If the transition between color blocks occurs via a slide
+across a white block, no command is executed.</P>
+<DL>
+<DT><STRONG><A NAME="item_%280_hue_steps%2C_1_step_darker%29_%3D%3E_push">(0 hue steps, 1 step darker) =&gt; <STRONG>push</STRONG></A></STRONG><BR>
+<DD>
+Pushes the value of the color block just exited on to the stack.
+Note: values are not automatically pushed onto the stack - the push
+operation must be explicitly carried out.
+<P></P>
+<DT><STRONG><A NAME="item_%280_hue_steps%2C_2_steps_darker%29_%3D%3E_pop">(0 hue steps, 2 steps darker) =&gt; <STRONG>pop</STRONG></A></STRONG><BR>
+<DD>
+Pops the top value off the stack and discards it.
+<P></P>
+<DT><STRONG><A NAME="item_%281_hue_step%2C_0_steps_darker%29_%3D%3E_add">(1 hue step, 0 steps darker) =&gt; <STRONG>add</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, adds them, and pushes the
+result back on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%281_hue_step%2C_1_step_darker%29_%3D%3E_subtract">(1 hue step, 1 step darker) =&gt; <STRONG>subtract</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, subtracts the top value from
+the second top value, and pushes the result back on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%281_hue_step%2C_2_steps_darker%29_%3D%3E_multiply">(1 hue step, 2 steps darker) =&gt; <STRONG>multiply</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, multiplies them, and pushes the
+result back on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%282_hue_steps%2C_0_steps_darker%29_%3D%3E_divide">(2 hue steps, 0 steps darker) =&gt; <STRONG>divide</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, calculates the integer division
+of the second top value by the top value, and pushes the result back
+on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%282_hue_steps%2C_1_step_darker%29_%3D%3E_mod">(2 hue steps, 1 step darker) =&gt; <STRONG>mod</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, calculates the second top value
+modulo the top value, and pushes the result back on the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%282_hue_steps%2C_2_steps_darker%29_%3D%3E_not">(2 hue steps, 2 steps darker) =&gt; <STRONG>not</STRONG></A></STRONG><BR>
+<DD>
+Replaces the top value of the stack with 0 if it is non-zero, and 1 if
+it is zero.
+<P></P>
+<DT><STRONG><A NAME="item_%283_hue_steps%2C_0_steps_darker%29_%3D%3E_greater">(3 hue steps, 0 steps darker) =&gt; <STRONG>greater</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack, and pushes 1 on to the stack if
+the second top value is greater than the top value, and pushes 0 if it
+is not greater.
+<P></P>
+<DT><STRONG><A NAME="item_%283_hue_steps%2C_1_step_darker%29_%3D%3E_pointer">(3 hue steps, 1 step darker) =&gt; <STRONG>pointer</STRONG></A></STRONG><BR>
+<DD>
+Pops the top value off the stack and rotates the DP clockwise that
+many steps, or counterclockwise if it is negative.
+<P></P>
+<DT><STRONG><A NAME="item_%283_hue_steps%2C_2_steps_darker%29_%3D%3E_switch">(3 hue steps, 2 steps darker) =&gt; <STRONG>switch</STRONG></A></STRONG><BR>
+<DD>
+Pops the top value off the stack and toggles the CC that many times.
+<P></P>
+<DT><STRONG><A NAME="item_%284_hue_steps%2C_0_steps_darker%29_%3D%3E_duplica">(4 hue steps, 0 steps darker) =&gt; <STRONG>duplicate</STRONG></A></STRONG><BR>
+<DD>
+Pushes a copy of the top value on the stack on to the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%284_hue_steps%2C_1_step_darker%29_%3D%3E_roll">(4 hue steps, 1 step darker) =&gt; <STRONG>roll</STRONG></A></STRONG><BR>
+<DD>
+Pops the top two values off the stack and ``rolls'' the remaining stack
+entries to a depth equal to the second value popped, by a number of
+rolls equal to the first value popped. A single roll to depth nis
+defined as burying the top value on the stack n deep and bringing all
+values above it up by 1 place. A negative number of rolls rolls in the
+opposite direction. A negative depth is an error and the command is
+ignored.
+<P></P>
+<DT><STRONG><A NAME="item_%284_hue_steps%2C_2_steps_darker%29_%3D%3E_number_">(4 hue steps, 2 steps darker) =&gt; <STRONG>number_in</STRONG></A></STRONG><BR>
+<DD>
+Reads a character from STDIN as a number, and pushes it on to the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%285_hue_steps%2C_0_steps_darker%29_%3D%3E_charact">(5 hue steps, 0 steps darker) =&gt; <STRONG>character_in</STRONG></A></STRONG><BR>
+<DD>
+Reads a value from STDIN as a character, and pushes it on to the stack.
+<P></P>
+<DT><STRONG><A NAME="item_%285_hue_steps%2C_1_step_darker%29_%3D%3E_number_o">(5 hue steps, 1 step darker) =&gt; <STRONG>number_out</STRONG></A></STRONG><BR>
+<DD>
+Pops the top value off the stack and prints it to STDOUT as a number.
+<P></P>
+<DT><STRONG><A NAME="item_%285_hue_steps%2C_2_steps_darker%29_%3D%3E_charact">(5 hue steps, 2 steps darker) =&gt; <STRONG>character_out</STRONG></A></STRONG><BR>
+<DD>
+Reads a value from STDIN as a character, and pushes it on to the stack.
+<P></P></DL>
+<P>Any operations which cannot be performed (such as popping values when
+not enough are on the stack) are simply ignored.</P>
+<P>
+<HR>
+<H1><A NAME="author">AUTHOR</A></H1>
+<P>Marc Majcher (<A HREF="mailto:piet-interpreter@majcher.com">piet-interpreter@majcher.com</A>)</P>
+<P>
+<HR>
+<H1><A NAME="see also">SEE ALSO</A></H1>
+<P><A HREF="http://www.majcher.com/code/piet">http://www.majcher.com/code/piet</A></P>
+<P><A HREF="http://www.physics.usyd.edu.au/~mar/esoteric/piet.html">http://www.physics.usyd.edu.au/~mar/esoteric/piet.html</A></P>
+
+</BODY>
+
+</HTML>

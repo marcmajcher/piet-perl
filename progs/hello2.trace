@@ -1,0 +1,46 @@
+          Red (72)
+PUSH 72   Dark Red
+DUP       Dark Blue
+COUT H    Cyan (29)
+PUSH 29   Dark Cyan
+ADD       Dark Blue
+DUP       Dark Green
+COUT e    Yellow (7)
+PUSH 7    Dark Yellow
+          White
+          Dark Yellow
+ADD       Dark Green
+DUP       Dark Red
+DUP       Dark Blue
+DUP       Dark Green
+COUT l    Yellow
+COUT l    Light Red (3)
+PUSH 3    Red
+          White
+	  Dark Yellow
+ADD       Dark Green
+DUP       Dark Red
+DUP       Dark Blue
+DUP       Dark Green
+COUT o    Yellow (44)
+PUSH 44   Dark Yellow
+COUT ,    Red (32)
+PUSH 32   Dark Red
+COUT      Magenta (8)
+PUSH 8    Dark Magenta
+ADD       Dark Red
+COUT w    Magenta
+COUT o    Light Blue (3)
+PUSH 6    Blue
+ADD       Magenta
+COUT r    Light Blue
+DUP       Light Green
+COUT l    Dark Yellow (8)
+PUSH      Light Yellow
+SUB       Green
+COUT d    Light Yellow (33)
+PUSH 33   Yellow
+COUT !    Light Red (10)
+PUSH 10   Red
+COUT      Light Magenta
+EXIT
